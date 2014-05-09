@@ -50,7 +50,7 @@
 @property (nonatomic, strong) NSMutableArray *eventsQueue;
 @property (nonatomic, strong) NSMutableArray *peopleQueue;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier taskId;
-@property (nonatomic, strong) dispatch_queue_t serialQueue;
+@property (nonatomic, assign) dispatch_queue_t serialQueue;
 @property (nonatomic, assign) SCNetworkReachabilityRef reachability;
 @property (nonatomic, strong) CTTelephonyNetworkInfo *telephonyInfo;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
@@ -219,6 +219,10 @@ static Mixpanel *sharedInstance = nil;
         SCNetworkReachabilitySetCallback(self.reachability, NULL, NULL);
         SCNetworkReachabilitySetDispatchQueue(self.reachability, NULL);
         self.reachability = nil;
+    }
+    if(self.serialQueue){
+        dispatch_release(self.serialQueue);
+        self.serialQueue = nil;
     }
 }
 
