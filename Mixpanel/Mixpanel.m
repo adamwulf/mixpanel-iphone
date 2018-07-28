@@ -1057,7 +1057,7 @@ static NSString *defaultProjectToken;
 - (BOOL)archiveObject:(id)object withFilePath:(NSString *)filePath
 {
     @try {
-        if (![NSKeyedArchiver archiveRootObject:object toFile:filePath]) {
+        if (![NSKeyedArchiver archiveRootObject:[object copy] toFile:filePath]) {
             return NO;
         }
     } @catch (NSException* exception) {
